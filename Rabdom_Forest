@@ -1,0 +1,66 @@
+##Random Forest
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+
+
+# Seleccionar variables predictoras y variable objetivo
+X = df_salud.drop('readmitted', axis=1)
+y = df_salud['readmitted']
+
+# Convertir variables categóricas a variables dummy
+X = pd.get_dummies(X)
+
+# Dividir en conjunto de entrenamiento y prueba
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Definir el modelo
+rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
+
+# Entrenar el modelo
+rf_model.fit(X_train, y_train)
+
+# Realizar predicciones en el conjunto de prueba
+y_pred = rf_model.predict(X_test)
+
+
+
+from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
+
+# Calcular la matriz de confusión
+cm = confusion_matrix(y_test, y_pred)
+print('Matriz de Confusión:\n', cm)
+
+# Calcular otras métricas de evaluación
+print('Accuracy:', accuracy_score(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+from scipy.stats import randint
+from sklearn.model_selection import RandomizedSearchCV, train_test_split
+
+param_dist = {'n_estimators': randint(50,500), #esto es para conocer los mejores hiperparametros
+              'max_depth': randint(1,20)}
+
+# Creaar un random forest classifier
+rf = RandomForestClassifier()
+
+# Usar un random search para encontrar los mejores hiperparametros
+rand_search = RandomizedSearchCV(rf, 
+                                 param_distributions = param_dist, 
+                                 n_iter=5, 
+                                 cv=5)
+# Ajustar el random search object a los datos
+rand_search.fit(X_train, y_train)
+
+# Crear una variable para el mejor modelo
+best_rf = rand_search.best_estimator_
+
+# imprimir los mejores hiperparametros
+print('Best hyperparameters:',  rand_search.best_params_)
+
+# Crear una serie que contenga la importancia de las características del modelo y nombres de características de los datos de entrenamiento
+feature_importances = pd.Series(best_rf.feature_importances_, index=X_train.columns).sort_values(ascending=False)
+
+# Trazar un gráfico de barras simple
+plt.figure(figsize= (12,9))
+feature_importances.plot.bar();
