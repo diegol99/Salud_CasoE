@@ -138,4 +138,4 @@ sns.countplot(y= df_salud['age'], hue = df_salud['readmitted']).set_title('Age o
 
 df_salud.columns
 
-df_salud = df_salud.drop(['A1Cresult'], axis= 1)
+df_salud = df_salud.drop(['A1Cresult','encounter_id'], axis= 1)
