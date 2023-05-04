@@ -1,4 +1,4 @@
-# Caso de estudio - Salud
+# CasoEstudio_Salud
 
 Un reingreso hospitalario se produce cuando un paciente que ha recibido el alta hospitalaria vuelve a ingresar en un plazo determinado. Las tasas de readmisión hospitalaria para determinadas afecciones se consideran actualmente un indicador de la calidad hospitalaria, y también afectan negativamente al coste de la asistencia. Por este motivo, los Centros de Servicios de Medicare y Medicaid crearon el Programa de Reducción de Reingresos Hospitalarios, cuyo objetivo es mejorar la calidad de la atención a los pacientes y reducir el gasto sanitario mediante la aplicación de penalizaciones de pago a los hospitales que presenten tasas de readmisión superiores a las previstas para determinadas afecciones. 
 Un informe del Instituto de Liderazgo de Salud Global de Yale, señala que la atención médica real solo representa el 20% de lo que determina la salud de un paciente, el resto está definido por la genética en  20% y la mayorí­a por factores sociales, ambientales y de comportamiento que suman 60%. Así­ lo indica una nota de Healthcare Business & Technology.
