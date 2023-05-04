@@ -1,0 +1,49 @@
+##Exploratorio
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+import pandas as pd
+df_salud= pd.read_csv("/content/drive/MyDrive/Analitica 3/Salud/diabetic_data.csv")
+
+df_salud.columns
+
+df_salud
+
+df_salud["weight"].value_counts()
+
+df_salud.info()
+
+# Contar valores faltantes en cada columna
+print(df_salud.isnull().sum())
+
+##Ver los ? de las diferentes columnas : weight,payer_code,medical_specialty
+###citoglipton,examide
+for col in df_salud.columns:
+    if df_salud[col].dtype == object:
+         print(col,df_salud[col][df_salud[col] == '?'].count())
+
+df_salud["citoglipton"].value_counts()
+
+df_salud["examide"].value_counts()
+
+import numpy as np
+##Weight : Mayor parte de sus datos son ?
+### Payer code y medical aproximada el 40 de los datos son ?
+##La demás tienen una sola categoria
+df_salud = df_salud.drop(['weight','payer_code','medical_specialty','citoglipton','examide'], axis = 1)
+##Para el estudio, se necesita saber si el paciente es readmitido dentro delos 30 días o no
+##Por eso se decide juntar dos categorias >30 y NO. 
+df_salud['readmitted'] = df_salud['readmitted'].replace('>30', '0')
+df_salud['readmitted'] = df_salud['readmitted'].replace('<30', '1')
+df_salud['readmitted'] = df_salud['readmitted'].replace('NO', '0')
+## Se convierten los datos que son ? a nulos y se eliminan
+df_salud.replace("?",np.nan,inplace= True)
+df_salud.dropna()
+
+for i in range(0,10):
+    df_salud['age'] = df_salud['age'].replace('['+str(10*i)+'-'+str(10*(i+1))+')', i+1)
+df_salud['age'].value_counts()
+
+# Muestra las primeras 5 filas del DataFrame
+df_salud.head()
