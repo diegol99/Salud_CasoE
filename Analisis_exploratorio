@@ -1,0 +1,141 @@
+##Analisis de datos
+
+# Obtiene información sobre las columnas y los tipos de datos
+df_salud.info()
+
+# Obtiene estadísticas descriptivas de las columnas numéricas
+df_salud.describe()
+
+# Cuenta el número de valores únicos en cada columna
+df_salud.nunique()
+
+import matplotlib.pyplot as plt
+
+# Histograma de la edad de los pacientes
+plt.hist(df_salud['age'], bins=20)
+plt.title('Edad de los pacientes')
+plt.xlabel('Edad')
+plt.ylabel('Frecuencia')
+plt.show()
+
+# Diagrama de caja de la duración de la estancia del paciente en el hospital
+plt.boxplot(df_salud['time_in_hospital'])
+plt.title('Duración de la estancia del paciente')
+plt.ylabel('Días')
+plt.show()
+
+# Gráfico de barras de la cantidad de pacientes por raza
+df_salud['race'].value_counts().plot(kind='bar')
+plt.title('Cantidad de pacientes por raza')
+plt.xlabel('Raza')
+plt.ylabel('Cantidad')
+plt.show()
+
+
+import matplotlib.pyplot as plt
+
+# Gráfico de barras de la cantidad de pacientes por género
+df_salud['gender'].value_counts().plot(kind='bar')
+plt.title('Cantidad de pacientes por género')
+plt.xlabel('Género')
+plt.ylabel('Cantidad')
+plt.show()
+
+# Gráfico de dispersión de la edad y la duración de la estancia del paciente
+plt.scatter(df_salud['age'], df_salud['time_in_hospital'])
+plt.title('Duración de la estancia del paciente según la edad')
+plt.xlabel('Edad')
+plt.ylabel('Duración de la estancia')
+plt.show()
+
+# Gráfico de pastel de los diagnósticos principales
+df_salud['diag_1'].value_counts().head(10).plot(kind='pie')
+plt.title('Diagnósticos principales')
+plt.show()
+
+# Histograma del nivel de HbA1c
+plt.hist(df_salud['A1Cresult'])
+plt.title('Nivel de HbA1c')
+plt.xlabel('Nivel')
+plt.ylabel('Frecuencia')
+plt.show()
+
+
+import seaborn as sns
+
+# Matriz de correlación
+corr_matrix = df_salud.corr()
+
+# Mapa de calor de la matriz de correlación
+plt.figure(figsize=(10,10))
+sns.heatmap(corr_matrix, cmap='coolwarm', annot=True)
+plt.title('Matriz de correlación')
+plt.show()
+
+# Histograma de la edad
+plt.hist(df_salud['age'], bins=20)
+plt.title('Distribución de la edad')
+plt.xlabel('Edad')
+plt.ylabel('Frecuencia')
+plt.show()
+
+
+# Histograma de la edad por género
+plt.figure(figsize=(8,8))
+df_salud.hist(column='age', by='gender', bins=20)
+plt.suptitle('Distribución de la edad por género')
+plt.show()
+
+
+# Estadísticas descriptivas por raza
+race_stats = df_salud.groupby('race').agg(['mean', 'std'])[['time_in_hospital', 'num_medications']]
+race_stats
+
+
+
+# Gráfico de barras de la distribución del tipo de diabetes
+plt.bar(df_salud['diabetesMed'].unique(), df_salud['diabetesMed'].value_counts())
+plt.xlabel('Toma medicamentos para la diabetes')
+plt.ylabel('Frecuencia')
+plt.show()
+
+
+import seaborn as sns
+
+# Diagrama de caja de la variable num_medications
+sns.boxplot(x=df_salud['num_medications'])
+plt.xlabel('Número de medicaciones')
+plt.show()
+
+
+import matplotlib.pyplot as plt
+
+# Gráfico de barras de la distribución de género
+plt.bar(df_salud['gender'].unique(), df_salud['gender'].value_counts())
+plt.xlabel('Género')
+plt.ylabel('Frecuencia')
+plt.show()
+
+# Gráfico de torta de la distribución de la clase de admisión
+plt.pie(df_salud['admission_type_id'].value_counts(), labels=df_salud['admission_type_id'].unique())
+plt.title('Distribución de la clase de admisión')
+plt.show()
+
+
+import numpy as np
+
+# Gráfico de la distribución acumulada de la edad
+n = len(df_salud['age'])
+y = np.arange(1, n+1) / n
+plt.plot(np.sort(df_salud['age']), y)
+plt.xlabel('Edad')
+plt.ylabel('Proporción acumulada')
+plt.show()
+
+
+fig = plt.figure(figsize=(8,8))
+sns.countplot(y= df_salud['age'], hue = df_salud['readmitted']).set_title('Age of Patient VS. Readmission')
+
+df_salud.columns
+
+df_salud = df_salud.drop(['A1Cresult'], axis= 1)
