@@ -1,0 +1,25 @@
+## Metricas
+
+# Graficar la precisión y la pérdida del modelo durante el entrenamiento
+acc = history.history['accuracy']
+val_acc = history.history['val_accuracy']
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+
+epochs = range(len(acc))
+
+plt.figure(figsize=(8, 8))
+plt.subplot(2, 1, 1)
+plt.plot(epochs, acc, 'r', label='Precisión del entrenamiento')
+plt.plot(epochs, val_acc, 'b', label='Precisión de la validación')
+plt.title('Precisión del entrenamiento y de la validación')
+plt.legend()
+
+plt.subplot(2, 1, 2)
+plt.plot(epochs, loss, 'r', label='Pérdida del entrenamiento')
+plt.plot(epochs, val_loss, 'b', label='Pérdida de la validación')
+plt.title('Pérdida del entrenamiento y de la validación')
+plt.legend()
+
+plt.show()
+
