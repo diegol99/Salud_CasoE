@@ -61,6 +61,9 @@ print('Best hyperparameters:',  rand_search.best_params_)
 # Crear una serie que contenga la importancia de las características del modelo y nombres de características de los datos de entrenamiento
 feature_importances = pd.Series(best_rf.feature_importances_, index=X_train.columns).sort_values(ascending=False)
 
+top_10_features = feature_importances.head(20)
+print(top_10_features)
+
 # Trazar un gráfico de barras simple
 plt.figure(figsize= (12,9))
-feature_importances.plot.bar();
+top_10_features.plot.bar();
